@@ -37,8 +37,8 @@ pub fn concateStrings(allocator: std.mem.Allocator, a: []u8, b: []u8) ![]u8 {
 test "gpa heap strings with concatenation" {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     const allocator = gpa.allocator();
-    var a = try allocator.alloc(u8, 10);
-    var b = try allocator.alloc(u8, 10);
+    var a = try allocator.alloc(u8, getRandomCount() % 10 + 5);
+    var b = try allocator.alloc(u8, getRandomCount() % 10 + 5);
     populateString(a);
     populateString(b);
     std.debug.print("{s} {s} {any}\n", .{ a, b, @TypeOf(a) });

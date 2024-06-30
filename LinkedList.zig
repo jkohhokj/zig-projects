@@ -14,6 +14,7 @@ const Node = struct {
         return self.prev;
     }
 };
+
 const ListErrors = error{
     ElementDNE,
     OutOfBounds,

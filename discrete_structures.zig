@@ -2,9 +2,12 @@
 const std = @import("std");
 const print = @import("std").debug.print;
 
+const Managed = std.math.big.int.Managed;
+const rng = std.crypto.random;
+const gpa = std.heap.GeneralPurposeAllocator(.{}){};
 pub fn main() !void {
-    var allocator = std.heap.page_allocator;
-    var argsIterator = try std.process.ArgIterator.initWithAllocator(allocator);
+    const pageAllocator = std.heap.page_allocator;
+    var argsIterator = try std.process.ArgIterator.initWithAllocator(pageAllocator);
     defer argsIterator.deinit();
 
     _ = argsIterator.next(); // filename
@@ -25,11 +28,12 @@ pub fn main() !void {
 }
 
 pub fn egcd(_a: i64, _b: i64) !void {
-    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-    var alloc = gpa.allocator();
-    var rows: u8 = 100;
+    //var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    var allocator = gpa.allocator();
+    const rows: u8 = 6;
     const cols: u8 = 10;
-    var table = try alloc.alloc([cols]i64, rows);
+    var table = try allocator.alloc([cols]i64, rows);
+    defer allocator.free(table);
     var a: i64 = _a;
     var b: i64 = _b;
     if (b > a) { //swap variables to make a > b
@@ -66,5 +70,26 @@ pub fn egcd(_a: i64, _b: i64) !void {
         c += 1;
     }
     print("gcd is 1\n", .{});
-    defer alloc.free(table);
 }
+
+pub fn makeBigInt(_: u16) !type{
+    //var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    const allocator = gpa.allocator();
+    var a = try Managed.init(allocator);
+    try a.set(1990273423429836742364234234234);
+    std.debug.print("{any}\n",.{a});
+    return a;
+}
+test "alloc big number"{
+    var gpa2 = std.heap.GeneralPurposeAllocator(.{}){};
+    const allocator = gpa2.allocator();
+    var a = try Managed.init(allocator);
+    a = try makeBigInt(1);
+    std.debug.print("{any}\n",a);
+}
+
+//pub fn inv_mod(&a, &m) !&b{
+//    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+//    var allocator = gpa.allocator();
+//
+//}

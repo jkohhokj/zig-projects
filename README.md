@@ -1,98 +1,5 @@
 # Zig Projects
 
-### RSA Suite (Zig 13.0)
-
-Here's an example output:
-```
-Generating primes:
-Primes p and q: 691 641
-Proving they are prime:
-  a  |  b  |  q  |  r  |  s  |  t
-691 | 641 | 1 | 50 | 1 | -1
-641 | 50 | 12 | 41 | -12 | 13
-50 | 41 | 1 | 9 | 13 | -14
-41 | 9 | 4 | 5 | -64 | 69
-9 | 5 | 1 | 4 | 77 | -83
-5 | 4 | 1 | 1 | -141 | 152
-4 | 1 | 4 | 0 | 641 | -691
-gcd is 1
-bezier coeffs are s=-141, t=152: -141*691+152*641=1
-```
-Our prime number generator uses Euler primes from the sequence $k^2-k+41$ when $0 < k < 41$.
-```
-Found the public key exponent
-e, n = 1231      442931
-```
-We generate a random public key coefficient `e` that's smaller than `n` but is still sufficiently large. `n` is simply a product of `q` and `p`.
-```
-Finding the private key exponent through inverse mod with egcd
-  a  |  b  |  q  |  r  |  s  |  t
-441600 | 1231 | 358 | 902 | 1 | -358
-1231 | 902 | 1 | 329 | -1 | 359
-902 | 329 | 2 | 244 | 3 | -1076
-329 | 244 | 1 | 85 | -4 | 1435
-244 | 85 | 2 | 74 | 11 | -3946
-85 | 74 | 1 | 11 | -15 | 5381
-74 | 11 | 6 | 8 | 101 | -36232
-11 | 8 | 1 | 3 | -116 | 41613
-8 | 3 | 2 | 2 | 333 | -119458
-3 | 2 | 1 | 1 | -449 | 161071
-2 | 1 | 2 | 0 | 1231 | -441600
-gcd is 1
-bezier coeffs are s=-449, t=161071: -449*441600+161071*1231=1
-```
-We generate the private key `d` by calculating the inverse modulos of `e` such that $e*d \equiv 1 (mod\: \phi(n))$. In our case, `d` is the positive beizer coefficient.
-
-```
-Found the full keypair:
-e = 1231
-d = 161071
-n = 442931
-Proving d * e === 1 (mod totient)
-161071 * 1231 = 441600 * 449 + 1
-```
-
-### Linked Lists (Zig 13.0)
-
-A Python list in Zig with the same methods and properties.
-
-Example output:
-```
-Print my list:
-3  133  44  44  44  42
-Print my list BACKWARDS:
-42  44  44  44  133  3
-
-Inline reversing my list...
-Print reversed list:
-42  44  44  44  133  3
-Print reversed list BACKWARDS (so should be normal):
-3  133  44  44  44  42
-
-Popping the last element...
-This is my popped node: LinkedList.Node{ .value = 3, .next = null, .prev = null }
-And the list looks like this now:
-42  44  44  44  133
-133  44  44  44  42
-
-Let's get rid of 133
-42  44  44  44
-44  44  44  42
-
-Let's get rid of 100 (it doesn't exist)
-I errored!!
-42  44  44  44
-44  44  44  42
-
-How many 44's are there?
-There are 3 44's.
-
-Let's remove all the 44's
-42
-42
-Yey Linked Lists :)
-```
-
 ### LC3 Virtual Machine (Zig 14.0)
 
 Sources:
@@ -195,4 +102,99 @@ Breakdown of instruction: 0000001111111101 hardware.vm.Instruction.OP_BR
 Registers in 0x: { 3007, 0, 0, 0, 0, 0, 0, 3004, 3006, 2 }
 Breakdown of instruction: 1111000000100101 hardware.vm.Instruction.OP_TRAP
 HALT
+```
+
+
+
+### Linked Lists (Zig 13.0)
+
+A Python list in Zig with the same methods and properties.
+
+Example output:
+```
+Print my list:
+3  133  44  44  44  42
+Print my list BACKWARDS:
+42  44  44  44  133  3
+
+Inline reversing my list...
+Print reversed list:
+42  44  44  44  133  3
+Print reversed list BACKWARDS (so should be normal):
+3  133  44  44  44  42
+
+Popping the last element...
+This is my popped node: LinkedList.Node{ .value = 3, .next = null, .prev = null }
+And the list looks like this now:
+42  44  44  44  133
+133  44  44  44  42
+
+Let's get rid of 133
+42  44  44  44
+44  44  44  42
+
+Let's get rid of 100 (it doesn't exist)
+I errored!!
+42  44  44  44
+44  44  44  42
+
+How many 44's are there?
+There are 3 44's.
+
+Let's remove all the 44's
+42
+42
+Yey Linked Lists :)
+```
+
+### RSA Suite (Zig 13.0)
+
+Here's an example output:
+```
+Generating primes:
+Primes p and q: 691 641
+Proving they are prime:
+  a  |  b  |  q  |  r  |  s  |  t
+691 | 641 | 1 | 50 | 1 | -1
+641 | 50 | 12 | 41 | -12 | 13
+50 | 41 | 1 | 9 | 13 | -14
+41 | 9 | 4 | 5 | -64 | 69
+9 | 5 | 1 | 4 | 77 | -83
+5 | 4 | 1 | 1 | -141 | 152
+4 | 1 | 4 | 0 | 641 | -691
+gcd is 1
+bezier coeffs are s=-141, t=152: -141*691+152*641=1
+```
+Our prime number generator uses Euler primes from the sequence $k^2-k+41$ when $0 < k < 41$.
+```
+Found the public key exponent
+e, n = 1231      442931
+```
+We generate a random public key coefficient `e` that's smaller than `n` but is still sufficiently large. `n` is simply a product of `q` and `p`.
+```
+Finding the private key exponent through inverse mod with egcd
+  a  |  b  |  q  |  r  |  s  |  t
+441600 | 1231 | 358 | 902 | 1 | -358
+1231 | 902 | 1 | 329 | -1 | 359
+902 | 329 | 2 | 244 | 3 | -1076
+329 | 244 | 1 | 85 | -4 | 1435
+244 | 85 | 2 | 74 | 11 | -3946
+85 | 74 | 1 | 11 | -15 | 5381
+74 | 11 | 6 | 8 | 101 | -36232
+11 | 8 | 1 | 3 | -116 | 41613
+8 | 3 | 2 | 2 | 333 | -119458
+3 | 2 | 1 | 1 | -449 | 161071
+2 | 1 | 2 | 0 | 1231 | -441600
+gcd is 1
+bezier coeffs are s=-449, t=161071: -449*441600+161071*1231=1
+```
+We generate the private key `d` by calculating the inverse modulos of `e` such that $e*d \equiv 1 (mod\: \phi(n))$. In our case, `d` is the positive beizer coefficient.
+
+```
+Found the full keypair:
+e = 1231
+d = 161071
+n = 442931
+Proving d * e === 1 (mod totient)
+161071 * 1231 = 441600 * 449 + 1
 ```

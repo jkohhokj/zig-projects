@@ -1,0 +1,24 @@
+// Symbol table
+// Scope level 0:
+//	Symbol Name       Page Address
+//	----------------  ------------
+//	newln             3001
+//	msg1              3003
+//	msg2              305E
+//	msg3              3099
+//	start             30F7
+//	input             3109
+//	checkChar         3110
+//	encrypt           3118
+//	encryptLoop       311A
+//	decrypt           3122
+//	decryptLoop       3124
+//	flipBit           312E
+//	output            3133
+//	outputLoop        3134
+//	array             313A
+//	neg48             314E
+//	neg69             314F
+//	neg68             3150
+//	pos20             3151
+

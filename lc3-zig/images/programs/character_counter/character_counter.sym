@@ -1,0 +1,19 @@
+// Symbol table
+// Scope level 0:
+//	Symbol Name       Page Address
+//	----------------  ------------
+//	input             3006
+//	inputloop         300C
+//	ltrcnt            300F
+//	output            3013
+//	outputloop        301C
+//	msg0              302C
+//	msg1              305D
+//	array             3086
+//	neg97             30A0
+//	pos26             30A1
+//	colon             30A2
+//	newln             30A3
+//	pos97             30A5
+//	pos48             30A6
+
